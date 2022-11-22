@@ -1,7 +1,21 @@
 # For more information, please refer to https://aka.ms/vscode-docker-python
 #FROM python:3.8-slim
 FROM python:3-alpine
-RUN python -m pip install --upgrade pip
+
+WORKDIR /
+
+COPY wheels ./wheels
+
+RUN apt-get update && apt-get install -y \
+    g++ \
+    gcc \
+    python3-dev \ 
+    libjpeg-dev \
+    zlib1g-dev \
+    make \
+    wget \
+    libatlas-base-dev \
+    libffi-dev 
 
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE=1
